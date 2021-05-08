@@ -16,7 +16,6 @@ COPY --from=builder /usr/local/cargo/bin/ss* /usr/local/bin/
 
 RUN set -ex \
  && which ssserver \
- && scanelf --needed --nobanner /usr/local/bin/ss* \
  && ssserver --version
 
 LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
