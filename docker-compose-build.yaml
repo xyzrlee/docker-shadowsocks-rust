@@ -5,7 +5,3 @@ services:
         build:
           context: .
           dockerfile: Dockerfile
-#          args:
-#            HTTP_PROXY: http://127.0.0.1:7890
-#            HTTPS_PROXY: http://127.0.0.1:7890
-#          network: host
