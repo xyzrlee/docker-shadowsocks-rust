@@ -11,7 +11,6 @@ ARG BUILD_ROOT="/build"
 COPY ${BUILD_SCRIPT} /build.sh
 
 RUN set -ex \
- && ls -alh / \
  && mkdir ${BUILD_ROOT} \
  && cd ${BUILD_ROOT} \
  && chmod +x /build.sh \
@@ -22,11 +21,12 @@ RUN set -ex \
 FROM alpine
 
 ARG BUILD_ROOT="/build"
+ARG TARGET="/usr/local/bin"
 
-COPY --from=builder /${BUILD_ROOT}/sslocal /usr/local/bin/
-COPY --from=builder /${BUILD_ROOT}/ssmanager /usr/local/bin/
-COPY --from=builder /${BUILD_ROOT}/ssserver /usr/local/bin/
-COPY --from=builder /${BUILD_ROOT}/ssurl /usr/local/bin/
+COPY --from=builder /${BUILD_ROOT}/sslocal ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssmanager ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssserver ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssurl ${TARGET}
 
 RUN set -ex \
  && which ssserver \
