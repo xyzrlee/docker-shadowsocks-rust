@@ -20,15 +20,19 @@ RUN set -ex \
 
 FROM alpine
 
+ARG ALPINE_MIRROR=""
 ARG BUILD_ROOT="/build"
 ARG TARGET="/usr/local/bin"
 
-COPY --from=builder /${BUILD_ROOT}/sslocal ${TARGET}
-COPY --from=builder /${BUILD_ROOT}/ssmanager ${TARGET}
-COPY --from=builder /${BUILD_ROOT}/ssserver ${TARGET}
-COPY --from=builder /${BUILD_ROOT}/ssurl ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/sslocal          ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssmanager        ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssserver         ${TARGET}
+COPY --from=builder /${BUILD_ROOT}/ssurl            ${TARGET}
 
 RUN set -ex \
+ && if [ -n "${ALPINE_MIRROR}" ]; then sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_MIRROR}/g" /etc/apk/repositories; fi \
+ && apk add --no-cache \
+        $(scanelf --needed --nobanner /usr/local/bin/ss* | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' | xargs -r apk info --installed | sort -u) \
  && which ssserver \
  && ssserver --version
 
