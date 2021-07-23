@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -n ${ALPINE_MIRROR} ]
+if [ -n "${ALPINE_MIRROR}" ]
 then
     echo "ALPINE_MIRROR=${ALPINE_MIRROR}"
     sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_MIRROR}/g" /etc/apk/repositories
