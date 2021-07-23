@@ -16,8 +16,7 @@ TAGNAME=`curl https://api.github.com/repos/shadowsocks/shadowsocks-rust/releases
 echo "TAGNAME=${TAGNAME}"
 
 TARBALL="shadowsocks-rust.tar.xz"
-URL="https://github.com/shadowsocks/shadowsocks-rust/releases/download/${TAGNAME}/shadowsocks-${TAGNAME}.aarch64-unknown-linux-musl.tar.xz"
-
+URL="https://github.com/shadowsocks/shadowsocks-rust/releases/download/${TAGNAME}/shadowsocks-${TAGNAME}.x86_64-unknown-linux-musl.tar.xz"
 wget -O ${TARBALL} ${URL}
 
 tar xvJf ${TARBALL}
