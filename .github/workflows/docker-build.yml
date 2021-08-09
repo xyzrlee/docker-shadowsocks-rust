@@ -3,6 +3,7 @@ on:
   push:
     branches: [ "*" ]
   workflow_dispatch:
+  repository_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,3 +16,8 @@ jobs:
         run: |
           chmod +x build.sh
           ./build.sh
+      - name: cache-tagname
+        uses: actions/cache@v2
+        with:
+          path: "DUPLICATED_FILE"
+          key: cache-m2-${{ TAGNAME }}
