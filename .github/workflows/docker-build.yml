@@ -23,6 +23,5 @@ jobs:
           key: cache-m2-${{ hashFiles('TAGNAME') }}
       - name: duplicated-file
         run: |
-          if [ -f "DUPLICATED_FILE" ]; then exit 0
+          if [ -f "DUPLICATED_FILE" ]; then exit 0; fi
           touch DUPLICATED_FILE
-          
